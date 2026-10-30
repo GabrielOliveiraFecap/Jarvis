@@ -11,7 +11,7 @@ function App() {
 
   return (
     <main>
-      <h1>Jarvis</h1>
+      <h1 className="text-3xl font-bold">Jarvis</h1>
       <p>Assistente pessoal</p>
       <p>{version}</p>
     </main>

@@ -317,7 +317,7 @@ build/                  ícones e recursos de empacotamento
 | API do Preload             | Reduzida: expõe só `api`, sem `electronAPI`                 |
 | Validação de URLs          | Concluída: só `https` e `http` chegam a `openExternal`      |
 | IPC seguro                 | Iniciado: canal `app:getVersion`, sem parâmetros            |
-| Tailwind CSS               | Não instalado                                               |
+| Tailwind CSS               | Configurado: versão 4, com `@tailwindcss/vite` no Renderer  |
 | Testes                     | Sem ferramenta nem script                                   |
 | Documentação               | Em andamento: `CLAUDE.md`                                   |
 | Validação do build         | Sem registro; não validado                                  |
@@ -330,6 +330,8 @@ build/                  ícones e recursos de empacotamento
   `package.json`, mas não é mais usado.
 - O identificador `jarvis.gabriel` aparece em `src/main/index.js` e em `electron-builder.yml`;
   altere sempre nos dois.
+- O Tailwind 4 não usa `tailwind.config.js`: o plugin fica só no bloco `renderer` de
+  `electron.vite.config.mjs`, e a ativação é o `@import 'tailwindcss'` em `assets/main.css`.
 - A formatação vem do Prettier: aspas simples, sem ponto e vírgula, 100 colunas, sem vírgula final e
   indentação de 2 espaços.
 
