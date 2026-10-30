@@ -3,6 +3,16 @@ import { join } from 'path'
 import { is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+function isAllowedExternalUrl(url) {
+  const allowedProtocols = ['https:', 'http:']
+  try {
+    const protocol = new URL(url).protocol
+    return allowedProtocols.includes(protocol)
+  } catch {
+    return false
+  }
+}
+
 export function createMainWindow() {
   const mainWindow = new BrowserWindow({
     width: 900,
@@ -30,6 +40,6 @@ export function createMainWindow() {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
-
+  
   return mainWindow
 }
