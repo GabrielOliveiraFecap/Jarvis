@@ -1,10 +1,9 @@
 {
-  "name": "Jarvis",
+  "name": "jarvis",
   "version": "1.0.0",
   "description": "Assistente pessoal para Windows",
   "main": "./out/main/index.js",
   "author": "Gabriel",
-  "homepage": "https://electron-vite.org",
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",
