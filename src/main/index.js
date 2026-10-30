@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, dialog } from 'electron'
 import { electronApp, optimizer } from '@electron-toolkit/utils'
 import { createMainWindow } from './window'
 import { registerIpcHandlers } from './ipc'
@@ -27,4 +27,8 @@ app.on('window-all-closed', () => {
   }
 })
 
-start()
+start().catch((error) => {
+  console.error('Falha ao iniciar o Jarvis:', error)
+  dialog.showErrorBox('Erro ao iniciar o Jarvis', error.message)
+  app.exit(1)
+})

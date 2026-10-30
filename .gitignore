@@ -5,3 +5,5 @@ out
 .eslintcache
 *.log*
 *.local.js
+.env
+.env.*

@@ -154,8 +154,8 @@ funcionalidades de outras fases.
    reconhecimento e síntese de voz, memória contextual, instalador, suporte multiplataforma,
    atualizações futuras.
 
-**Próxima etapa planejada:** finalizar a Fase 1, avançando gradualmente pela configuração e pela
-segurança do Electron.
+**Próxima etapa planejada:** iniciar a Fase 2, com o cadastro de aplicações em arquivos de
+configuração.
 
 ## 6. Regras gerais de desenvolvimento
 
@@ -308,28 +308,27 @@ build/                  ícones e recursos de empacotamento
 
 ### Fase 1
 
-| Item                       | Situação                                                    |
-| -------------------------- | ----------------------------------------------------------- |
-| Auditoria do projeto       | Sem registro de conclusão                                   |
-| Organização da arquitetura | Parcial: `window.js` separado do ciclo de vida              |
-| Main, Preload e Renderer   | Parcial: demonstrações removidas; Preload ainda do template |
-| `contextIsolation`         | Só pelo padrão do Electron; não declarado em `window.js`    |
-| `nodeIntegration`          | Só pelo padrão do Electron; não declarado em `window.js`    |
-| `sandbox`                  | Ativado em `window.js`: `sandbox: true`                     |
-| API do Preload             | Reduzida: expõe só `api`, sem `electronAPI`                 |
-| Validação de URLs          | Concluída: só `https` e `http` chegam a `openExternal`      |
-| IPC seguro                 | Iniciado: canal `app:getVersion`, sem parâmetros            |
-| Tailwind CSS               | Configurado: versão 4, com `@tailwindcss/vite` no Renderer  |
-| Testes                     | Iniciados: `npm test` com `node:test` cobre `externalUrl`   |
-| Documentação               | Em andamento: `CLAUDE.md`                                   |
-| Validação do build         | Sem registro; não validado                                  |
+| Item                       | Situação                                                   |
+| -------------------------- | ---------------------------------------------------------- |
+| Auditoria do projeto       | Concluída na consolidação deste documento                  |
+| Organização da arquitetura | Concluída: `window.js`, `ipc.js` e `externalUrl.js`        |
+| Main, Preload e Renderer   | Concluído: demonstrações removidas e Preload restrito      |
+| `contextIsolation`         | Declarado em `webPreferences`: `true`                      |
+| `nodeIntegration`          | Declarado em `webPreferences`: `false`                     |
+| `sandbox`                  | Ativado em `window.js`: `sandbox: true`                    |
+| API do Preload             | Reduzida: expõe só `api`, sem `electronAPI`                |
+| Validação de URLs          | Concluída: só `https` e `http` chegam a `openExternal`     |
+| IPC seguro                 | Iniciado: canal `app:getVersion`, sem parâmetros           |
+| Tailwind CSS               | Configurado: versão 4, com `@tailwindcss/vite` no Renderer |
+| Testes                     | Iniciados: `npm test` com `node:test` cobre `externalUrl`  |
+| Documentação               | Em andamento: `CLAUDE.md`                                  |
+| Validação do build         | Concluída com `build:unpack`; instalador ainda não testado |
 
 ### Fatos técnicos
 
 - O código-fonte usa ES Modules, mas o build de Main e Preload sai em CommonJS, porque o
   `package.json` não declara `"type": "module"`. Por isso `__dirname` funciona em `window.js`.
-- O build do Preload só faz `require('electron')`. O pacote `@electron-toolkit/preload` continua no
-  `package.json`, mas não é mais usado.
+- O build do Preload só faz `require('electron')`.
 - O identificador `jarvis.gabriel` aparece em `src/main/index.js` e em `electron-builder.yml`;
   altere sempre nos dois.
 - O Tailwind 4 não usa `tailwind.config.js`: o plugin fica só no bloco `renderer` de
@@ -382,14 +381,9 @@ Nada aqui é decisão. Pergunte antes de assumir qualquer resposta.
 
 ### Propostas ainda não aprovadas
 
-1. Adicionar `.env` e `.env.*` ao `.gitignore`. O `electron-builder.yml` já os exclui do pacote, mas
-   o Git não os ignora.
-2. Declarar `contextIsolation: true` e `nodeIntegration: false` em `window.js`, em vez de depender
-   dos padrões do Electron.
-3. Remover do Preload o caminho alternativo para `contextIsolation` desativada.
-4. Tratar erros de `start()` em `src/main/index.js`, que hoje é chamada sem `try/catch`.
-5. Rodar `npm run lint` antes de concluir alterações de código.
-6. Manter a Content Security Policy e exigir justificativa para relaxá-la.
-7. Alinhar o fim de linha: `.editorconfig` e Prettier esperam LF, mas o Git usa
+1. Remover do Preload o caminho alternativo para `contextIsolation` desativada.
+2. Rodar `npm run lint` antes de concluir alterações de código.
+3. Manter a Content Security Policy e exigir justificativa para relaxá-la.
+4. Alinhar o fim de linha: `.editorconfig` e Prettier esperam LF, mas o Git usa
    `core.autocrlf=true`, o que gera avisos no lint.
-8. Definir uma URL real de atualização quando a Fase 8 chegar; hoje é `example.com`.
+5. Definir uma URL real de atualização quando a Fase 8 chegar; hoje é `example.com`.
