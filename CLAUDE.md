@@ -296,7 +296,8 @@ há funcionalidades de assistente.
 src/
   main/index.js         ciclo de vida do app, com async function start()
   main/window.js        criação da janela principal
-  preload/index.js      expõe api (vazia)
+  main/ipc.js           registro dos canais IPC
+  preload/index.js      expõe api com getVersion
   renderer/index.html   página base e Content Security Policy
   renderer/src/         main.jsx, App.jsx e assets/main.css
 resources/              recursos usados em execução
@@ -313,9 +314,9 @@ build/                  ícones e recursos de empacotamento
 | `contextIsolation`         | Só pelo padrão do Electron; não declarado em `window.js`    |
 | `nodeIntegration`          | Só pelo padrão do Electron; não declarado em `window.js`    |
 | `sandbox`                  | Ativado em `window.js`: `sandbox: true`                     |
-| API do Preload             | Reduzida: expõe só `api` (vazia), sem `electronAPI`         |
+| API do Preload             | Reduzida: expõe só `api`, sem `electronAPI`                 |
 | Validação de URLs          | Concluída: só `https` e `http` chegam a `openExternal`      |
-| IPC seguro                 | Não iniciado: não há `ipcMain` nem canais                   |
+| IPC seguro                 | Iniciado: canal `app:getVersion`, sem parâmetros            |
 | Tailwind CSS               | Não instalado                                               |
 | Testes                     | Sem ferramenta nem script                                   |
 | Documentação               | Em andamento: `CLAUDE.md`                                   |

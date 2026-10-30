@@ -1,11 +1,14 @@
 import { app, BrowserWindow } from 'electron'
 import { electronApp, optimizer } from '@electron-toolkit/utils'
 import { createMainWindow } from './window'
+import { registerIpcHandlers } from './ipc'
 
 async function start() {
   await app.whenReady()
 
   electronApp.setAppUserModelId('jarvis.gabriel')
+
+  registerIpcHandlers()
 
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
