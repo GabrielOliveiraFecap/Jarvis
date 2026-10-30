@@ -312,7 +312,7 @@ build/                  ícones e recursos de empacotamento
 | Main, Preload e Renderer   | Parcial: demonstrações removidas; Preload ainda do template |
 | `contextIsolation`         | Só pelo padrão do Electron; não declarado em `window.js`    |
 | `nodeIntegration`          | Só pelo padrão do Electron; não declarado em `window.js`    |
-| `sandbox`                  | **Divergente:** `sandbox: false`                            |
+| `sandbox`                  | Ativado em `window.js`: `sandbox: true`                     |
 | API do Preload             | Reduzida: expõe só `api` (vazia), sem `electronAPI`         |
 | Validação de URLs          | Concluída: só `https` e `http` chegam a `openExternal`      |
 | IPC seguro                 | Não iniciado: não há `ipcMain` nem canais                   |
