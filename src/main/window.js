@@ -2,16 +2,7 @@ import { BrowserWindow, shell } from 'electron'
 import { join } from 'path'
 import { is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-
-function isAllowedExternalUrl(url) {
-  const allowedProtocols = ['https:', 'http:']
-  try {
-    const protocol = new URL(url).protocol
-    return allowedProtocols.includes(protocol)
-  } catch {
-    return false
-  }
-}
+import { isAllowedExternalUrl } from './externalUrl'
 
 export function createMainWindow() {
   const mainWindow = new BrowserWindow({

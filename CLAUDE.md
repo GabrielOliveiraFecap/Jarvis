@@ -46,6 +46,7 @@ A IA nunca tem liberdade para executar comandos arbitrários no sistema operacio
 | Comunicação      | Electron IPC                  |
 | Banco de dados   | SQLite local                  |
 | Empacotamento    | Electron Builder              |
+| Testes           | `node:test`                   |
 
 - **Somente JavaScript.** Não introduza TypeScript nem converta arquivos para `.ts` ou `.tsx`.
   Consolidar o conhecimento em JavaScript é um dos objetivos do projeto.
@@ -297,6 +298,7 @@ src/
   main/index.js         ciclo de vida do app, com async function start()
   main/window.js        criação da janela principal
   main/ipc.js           registro dos canais IPC
+  main/externalUrl.js   validação de URLs externas, com testes em externalUrl.test.js
   preload/index.js      expõe api com getVersion
   renderer/index.html   página base e Content Security Policy
   renderer/src/         main.jsx, App.jsx e assets/main.css
@@ -318,7 +320,7 @@ build/                  ícones e recursos de empacotamento
 | Validação de URLs          | Concluída: só `https` e `http` chegam a `openExternal`      |
 | IPC seguro                 | Iniciado: canal `app:getVersion`, sem parâmetros            |
 | Tailwind CSS               | Configurado: versão 4, com `@tailwindcss/vite` no Renderer  |
-| Testes                     | Sem ferramenta nem script                                   |
+| Testes                     | Iniciados: `npm test` com `node:test` cobre `externalUrl`   |
 | Documentação               | Em andamento: `CLAUDE.md`                                   |
 | Validação do build         | Sem registro; não validado                                  |
 
@@ -350,6 +352,10 @@ npm run format
 ```
 
 ```bash
+npm test
+```
+
+```bash
 npm run build:win
 ```
 
@@ -363,7 +369,8 @@ Nada aqui é decisão. Pergunte antes de assumir qualquer resposta.
    configurações se comporta antes do SQLite, já que alterações em memória se perdem ao fechar o app.
 2. **GitHub no modo Trabalho:** falta definir se é o site, aberto no Opera, ou um aplicativo. Se for
    o site, depende de internet.
-3. **Testes da Fase 1:** falta definir ferramenta e abrangência.
+3. **Abrangência dos testes:** a proposta é cobrir só lógica pura por enquanto, e reavaliar uma
+   ferramenta para interface na Fase 4.
 4. **Fallback e modo Automático:** falta definir como a escolha de provedor fica visível, já que a
    troca silenciosa é proibida.
 5. **Biblioteca do SQLite:** não foi escolhida. O `electron-builder.yml` usa `npmRebuild: false`, o
