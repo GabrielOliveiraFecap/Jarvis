@@ -1,6 +1,6 @@
-# react-ts
+# Jarvis
 
-An Electron application with React
+Assistente pessoal para Windows.
 
 ## Recommended IDE Setup
 
