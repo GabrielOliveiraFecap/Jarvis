@@ -19,7 +19,7 @@ export function createMainWindow() {
     height: 670,
     show: false,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    icon: icon,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
@@ -31,7 +31,9 @@ export function createMainWindow() {
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
-    shell.openExternal(details.url)
+    if (isAllowedExternalUrl(details.url)) {
+      shell.openExternal(details.url)
+    }
     return { action: 'deny' }
   })
 
@@ -40,6 +42,6 @@ export function createMainWindow() {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
-  
+
   return mainWindow
 }

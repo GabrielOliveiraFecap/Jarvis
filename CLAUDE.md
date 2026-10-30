@@ -314,7 +314,7 @@ build/                  ícones e recursos de empacotamento
 | `nodeIntegration`          | Só pelo padrão do Electron; não declarado em `window.js`    |
 | `sandbox`                  | **Divergente:** `sandbox: false`                            |
 | API do Preload             | **Divergente:** expõe `electronAPI` inteira ao Renderer     |
-| Validação de URLs          | **Divergente:** qualquer URL vai para `shell.openExternal`  |
+| Validação de URLs          | Concluída: só `https` e `http` chegam a `openExternal`      |
 | IPC seguro                 | Não iniciado: não há `ipcMain` nem canais                   |
 | Tailwind CSS               | Não instalado                                               |
 | Testes                     | Sem ferramenta nem script                                   |
