@@ -296,7 +296,7 @@ há funcionalidades de assistente.
 src/
   main/index.js         ciclo de vida do app, com async function start()
   main/window.js        criação da janela principal
-  preload/index.js      expõe electronAPI e api (vazia)
+  preload/index.js      expõe api (vazia)
   renderer/index.html   página base e Content Security Policy
   renderer/src/         main.jsx, App.jsx e assets/main.css
 resources/              recursos usados em execução
@@ -313,7 +313,7 @@ build/                  ícones e recursos de empacotamento
 | `contextIsolation`         | Só pelo padrão do Electron; não declarado em `window.js`    |
 | `nodeIntegration`          | Só pelo padrão do Electron; não declarado em `window.js`    |
 | `sandbox`                  | **Divergente:** `sandbox: false`                            |
-| API do Preload             | **Divergente:** expõe `electronAPI` inteira ao Renderer     |
+| API do Preload             | Reduzida: expõe só `api` (vazia), sem `electronAPI`         |
 | Validação de URLs          | Concluída: só `https` e `http` chegam a `openExternal`      |
 | IPC seguro                 | Não iniciado: não há `ipcMain` nem canais                   |
 | Tailwind CSS               | Não instalado                                               |
@@ -325,8 +325,8 @@ build/                  ícones e recursos de empacotamento
 
 - O código-fonte usa ES Modules, mas o build de Main e Preload sai em CommonJS, porque o
   `package.json` não declara `"type": "module"`. Por isso `__dirname` funciona em `window.js`.
-- O build do Preload faz `require('@electron-toolkit/preload')`. Esse é um dos pontos a adequar
-  antes de ativar o sandbox.
+- O build do Preload só faz `require('electron')`. O pacote `@electron-toolkit/preload` continua no
+  `package.json`, mas não é mais usado.
 - O identificador `jarvis.gabriel` aparece em `src/main/index.js` e em `electron-builder.yml`;
   altere sempre nos dois.
 - A formatação vem do Prettier: aspas simples, sem ponto e vírgula, 100 colunas, sem vírgula final e
