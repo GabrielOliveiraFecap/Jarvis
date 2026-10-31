@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { parseProcessNames } from './processList.js'
+import { isApplicationRunning, parseProcessNames } from './processList.js'
 
 test('extrai os nomes dos processos', () => {
   const output =
@@ -8,4 +8,11 @@ test('extrai os nomes dos processos', () => {
     '"opera.exe","5678","Console","1","90.000 K"\r\n'
 
   assert.deepEqual(parseProcessNames(output), ['Code.exe', 'opera.exe'])
+})
+
+test('identifica se a aplicação está aberta, sem diferenciar maiúsculas', () => {
+  const application = { processName: 'Code.exe' }
+
+  assert.equal(isApplicationRunning(application, ['code.exe', 'opera.exe']), true)
+  assert.equal(isApplicationRunning(application, ['opera.exe']), false)
 })

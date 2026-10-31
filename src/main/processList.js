@@ -17,3 +17,9 @@ export function parseProcessNames(output) {
     return firstField.replace('"', '')
   })
 }
+
+export function isApplicationRunning(application, runningProcesses) {
+  return runningProcesses.some((processName) => {
+    return application.processName.toLowerCase() === processName.toLowerCase()
+  })
+}
