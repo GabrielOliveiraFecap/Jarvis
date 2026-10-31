@@ -21,7 +21,8 @@ export const applications = [
     id: 'lol',
     name: 'League of Legends',
     executablePath: 'C:\\Riot Games\\Riot Client\\RiotClientServices.exe',
-    args: ['--launch-product=league_of_legends', '--launch-patchline=live']
+    args: ['--launch-product=league_of_legends', '--launch-patchline=live'],
+    riotProduct: { product: 'league_of_legends', patchline: 'live' }
   },
   {
     id: 'radmin',

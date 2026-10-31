@@ -95,6 +95,9 @@ Regras:
 - Evite instâncias duplicadas e detecte aplicações já abertas.
 - Informe os erros reais de inicialização.
 - Não encerre aplicações automaticamente ao trocar de modo.
+- O League of Legends inicia pela API local não oficial do Riot Client, lendo a porta e a senha do
+  `lockfile`. Essa senha nunca vai para logs, Git ou Renderer, e o certificado só é aceito para
+  `127.0.0.1`.
 
 ### Inteligência artificial
 
@@ -302,6 +305,8 @@ src/
   main/ipc.js           registro dos canais IPC
   main/externalUrl.js   validação de URLs externas, com testes em externalUrl.test.js
   main/config/          aplicações em applications.js e acesso em configStore.js
+  main/launcher.js      abre aplicações com spawn
+  main/riotClient.js    pede ao Riot Client para iniciar o jogo, usando riotLockfile.js
   preload/index.js      expõe api com getVersion
   renderer/index.html   página base e Content Security Policy
   renderer/src/         main.jsx, App.jsx e assets/main.css
