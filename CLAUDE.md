@@ -87,6 +87,8 @@ Main.
 | League of Legends | Riot Client, League of Legends |
 | Minecraft         | Radmin VPN, SKLauncher         |
 
+No modo Trabalho, GitHub é o site aberto dentro do Opera, não um aplicativo. Ele depende de internet.
+
 Regras:
 
 - Os caminhos das aplicações são configuráveis pelo usuário; não presuma caminhos de instalação.
@@ -366,17 +368,15 @@ Nada aqui é decisão. Pergunte antes de assumir qualquer resposta.
 
 1. **Fase 4 sem persistência:** a diretriz cobre as Fases 1 a 3. Falta definir como a tela de
    configurações se comporta antes do SQLite, já que alterações em memória se perdem ao fechar o app.
-2. **GitHub no modo Trabalho:** falta definir se é o site, aberto no Opera, ou um aplicativo. Se for
-   o site, depende de internet.
-3. **Abrangência dos testes:** a proposta é cobrir só lógica pura por enquanto, e reavaliar uma
+2. **Abrangência dos testes:** a proposta é cobrir só lógica pura por enquanto, e reavaliar uma
    ferramenta para interface na Fase 4.
-4. **Fallback e modo Automático:** falta definir como a escolha de provedor fica visível, já que a
+3. **Fallback e modo Automático:** falta definir como a escolha de provedor fica visível, já que a
    troca silenciosa é proibida.
-5. **Biblioteca do SQLite:** não foi escolhida. O `electron-builder.yml` usa `npmRebuild: false`, o
+4. **Biblioteca do SQLite:** não foi escolhida. O `electron-builder.yml` usa `npmRebuild: false`, o
    que deve ser revisto se ela for um módulo nativo.
-6. **Armazenamento de credenciais:** o mecanismo não foi escolhido.
-7. **Registro de decisões arquiteturais:** falta definir o formato e o local.
-8. **Commits:** falta confirmar se devem ser feitos só após aprovação em cada etapa, e definir uma
+5. **Armazenamento de credenciais:** o mecanismo não foi escolhido.
+6. **Registro de decisões arquiteturais:** falta definir o formato e o local.
+7. **Commits:** falta confirmar se devem ser feitos só após aprovação em cada etapa, e definir uma
    convenção de mensagens.
 
 ### Propostas ainda não aprovadas
