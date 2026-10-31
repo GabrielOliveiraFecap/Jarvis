@@ -2,7 +2,8 @@ import { contextBridge, ipcRenderer } from 'electron'
 
 // Custom APIs for renderer
 const api = {
-  getVersion: () => ipcRenderer.invoke('app:getVersion')
+  getVersion: () => ipcRenderer.invoke('app:getVersion'),
+  launchApplication: (id) => ipcRenderer.invoke('applications:launch', id)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

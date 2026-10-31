@@ -308,7 +308,7 @@ src/
   main/config/          aplicações em applications.js e acesso em configStore.js
   main/launcher.js      abre aplicações com spawn
   main/riotClient.js    pede ao Riot Client para iniciar o jogo, usando riotLockfile.js
-  preload/index.js      expõe api com getVersion
+  preload/index.js      expõe api com getVersion e launchApplication
   renderer/index.html   página base e Content Security Policy
   renderer/src/         main.jsx, App.jsx e assets/main.css
 resources/              recursos usados em execução
@@ -327,7 +327,7 @@ build/                  ícones e recursos de empacotamento
 | `sandbox`                  | Ativado em `window.js`: `sandbox: true`                    |
 | API do Preload             | Reduzida: expõe só `api`, sem `electronAPI`                |
 | Validação de URLs          | Concluída: só `https` e `http` chegam a `openExternal`     |
-| IPC seguro                 | Iniciado: canal `app:getVersion`, sem parâmetros           |
+| IPC seguro                 | Concluído: `app:getVersion` e `applications:launch` por id |
 | Tailwind CSS               | Configurado: versão 4, com `@tailwindcss/vite` no Renderer |
 | Testes                     | Iniciados: `npm test` com `node:test` cobre `externalUrl`  |
 | Documentação               | Em andamento: `CLAUDE.md`                                  |
