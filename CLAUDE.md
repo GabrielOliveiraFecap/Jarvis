@@ -121,11 +121,11 @@ Planeje a estrutura definitiva conforme as necessidades reais de cada fase.
 
 - Nas Fases 1 a 3, modos e aplicações iniciais ficam em arquivos JavaScript de configuração ou em
   estruturas em memória.
-- A estrutura e os exemplos de aplicações ficam versionados.
-- Os caminhos reais dos executáveis ficam em um arquivo local `*.local.js`, ignorado pelo Git. O
-  repositório é público: esses caminhos nunca devem ir para o GitHub.
-- Nas Fases 2 e 3, um único módulo de acesso combina os dois arquivos. O motor de automação só usa
-  esse módulo, que na Fase 5 passa a consultar o SQLite.
+- As aplicações e os caminhos reais dos executáveis ficam juntos em
+  `src/main/config/applications.js`, versionado. A exposição desses caminhos no repositório público
+  é aceita. Credenciais continuam proibidas nesse arquivo.
+- O motor de automação só usa `src/main/config/configStore.js`, que na Fase 5 passa a consultar o
+  SQLite.
 - Não crie um sistema provisório de armazenamento em JSON nem outro banco antes da hora.
 - Desde já, considere que os caminhos dos executáveis serão configuráveis pelo usuário e que modos e
   aplicações poderão ser cadastrados, editados e removidos.
@@ -156,8 +156,8 @@ funcionalidades de outras fases.
    reconhecimento e síntese de voz, memória contextual, instalador, suporte multiplataforma,
    atualizações futuras.
 
-**Próxima etapa planejada:** iniciar a Fase 2, com o cadastro de aplicações em arquivos de
-configuração.
+**Próxima etapa planejada:** continuar a Fase 2, abrindo as aplicações cadastradas em
+`src/main/config/applications.js`.
 
 ## 6. Regras gerais de desenvolvimento
 
@@ -301,6 +301,7 @@ src/
   main/window.js        criação da janela principal
   main/ipc.js           registro dos canais IPC
   main/externalUrl.js   validação de URLs externas, com testes em externalUrl.test.js
+  main/config/          aplicações em applications.js e acesso em configStore.js
   preload/index.js      expõe api com getVersion
   renderer/index.html   página base e Content Security Policy
   renderer/src/         main.jsx, App.jsx e assets/main.css
