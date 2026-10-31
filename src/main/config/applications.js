@@ -11,7 +11,8 @@ export const applications = [
     name: 'Opera',
     processName: 'opera.exe',
     executablePath: 'C:\\Users\\w10\\AppData\\Local\\Programs\\Opera GX\\opera.exe',
-    args: ['https://github.com']
+    args: ['https://github.com'],
+    alwaysLaunch: true
   },
   {
     id: 'riot',

@@ -93,6 +93,7 @@ Regras:
 
 - Os caminhos das aplicações são configuráveis pelo usuário; não presuma caminhos de instalação.
 - Evite instâncias duplicadas e detecte aplicações já abertas.
+- O Opera é exceção (`alwaysLaunch`): abre o GitHub mesmo se já estiver aberto.
 - Informe os erros reais de inicialização.
 - Não encerre aplicações automaticamente ao trocar de modo.
 - O League of Legends inicia pela API local não oficial do Riot Client, lendo a porta e a senha do
