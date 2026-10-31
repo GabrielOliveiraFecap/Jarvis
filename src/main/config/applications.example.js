@@ -17,7 +17,7 @@ export const applications = [
   {
     id: 'lol',
     name: 'League of Legends',
-    args: []
+    args: ['--launch-product=league_of_legends', '--launch-patchline=live']
   },
   {
     id: 'radmin',
