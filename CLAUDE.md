@@ -160,8 +160,7 @@ funcionalidades de outras fases.
    reconhecimento e síntese de voz, memória contextual, instalador, suporte multiplataforma,
    atualizações futuras.
 
-**Próxima etapa planejada:** continuar a Fase 2, abrindo as aplicações cadastradas em
-`src/main/config/applications.js`.
+**Próxima etapa planejada:** iniciar a Fase 3, com o registro de modos.
 
 ## 6. Regras gerais de desenvolvimento
 
@@ -308,7 +307,8 @@ src/
   main/config/          aplicações em applications.js e acesso em configStore.js
   main/launcher.js      abre aplicações com spawn
   main/riotClient.js    pede ao Riot Client para iniciar o jogo, usando riotLockfile.js
-  preload/index.js      expõe api com getVersion e launchApplication
+  main/processList.js   lista processos abertos e verifica aplicações
+  preload/index.js      expõe api com getVersion, launchApplication e listApplications
   renderer/index.html   página base e Content Security Policy
   renderer/src/         main.jsx, App.jsx e assets/main.css
 resources/              recursos usados em execução
@@ -329,7 +329,7 @@ build/                  ícones e recursos de empacotamento
 | Validação de URLs          | Concluída: só `https` e `http` chegam a `openExternal`     |
 | IPC seguro                 | Concluído: `app:getVersion` e `applications:launch` por id |
 | Tailwind CSS               | Configurado: versão 4, com `@tailwindcss/vite` no Renderer |
-| Testes                     | Iniciados: `npm test` com `node:test` cobre `externalUrl`  |
+| Testes                     | Iniciados: `npm test` cobre URLs, `lockfile` e processos   |
 | Documentação               | Em andamento: `CLAUDE.md`                                  |
 | Validação do build         | Concluída com `build:unpack`; instalador ainda não testado |
 
