@@ -5,6 +5,7 @@ const api = {
   getVersion: () => ipcRenderer.invoke('app:getVersion'),
   launchApplication: (id) => ipcRenderer.invoke('applications:launch', id),
   listApplications: () => ipcRenderer.invoke('applications:list'),
+  listModes: () => ipcRenderer.invoke('modes:list'),
   activateMode: (id) => ipcRenderer.invoke('modes:activate', id)
 }
 

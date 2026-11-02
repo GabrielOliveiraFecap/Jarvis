@@ -1,5 +1,5 @@
 import { app, ipcMain } from 'electron'
-import { getApplication, listApplications } from './config/configStore'
+import { getApplication, listApplications, listModes } from './config/configStore'
 import { launchApplication } from './launcher'
 import { listRunningProcesses, isApplicationRunning } from './processList'
 import { activateMode } from './modeManager'
@@ -32,5 +32,12 @@ export function registerIpcHandlers() {
 
   ipcMain.handle('modes:activate', (event, id) => {
     return activateMode(id)
+  })
+
+  ipcMain.handle('modes:list', async () => {
+    const modes = await listModes()
+    return modes.map((mode) => {
+      return { id: mode.id, name: mode.name }
+    })
   })
 }

@@ -160,7 +160,7 @@ funcionalidades de outras fases.
    reconhecimento e síntese de voz, memória contextual, instalador, suporte multiplataforma,
    atualizações futuras.
 
-**Próxima etapa planejada:** concluir a Fase 3, com o feedback de estado dos modos.
+**Próxima etapa planejada:** iniciar a Fase 4, com a interface.
 
 ## 6. Regras gerais de desenvolvimento
 
@@ -294,9 +294,9 @@ forneça-a sem deixar de explicar brevemente algo importante.
 
 Conferido em 2026-10-30. Confira de novo antes de usar.
 
-O projeto veio do template Electron Vite com React e JavaScript. A interface é uma tela estática; os
-elementos demonstrativos do template (botão de IPC e componente Versions) já não existem. Ainda não
-há funcionalidades de assistente.
+O projeto veio do template Electron Vite com React e JavaScript. Os elementos demonstrativos do
+template (botão de IPC e componente Versions) já não existem. As Fases 1 a 3 estão concluídas: a
+tela mostra um botão por modo e o status de cada aplicação ativada, ainda sem o visual da Fase 4.
 
 ```text
 src/
@@ -309,7 +309,7 @@ src/
   main/riotClient.js    pede ao Riot Client para iniciar o jogo, usando riotLockfile.js
   main/processList.js   lista processos abertos e verifica aplicações
   main/modeManager.js   ativa as aplicações de um modo
-  preload/index.js      expõe api com getVersion, aplicações e activateMode
+  preload/index.js      expõe api com getVersion, aplicações, listModes e activateMode
   renderer/index.html   página base e Content Security Policy
   renderer/src/         main.jsx, App.jsx e assets/main.css
 resources/              recursos usados em execução
