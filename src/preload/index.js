@@ -4,7 +4,8 @@ import { contextBridge, ipcRenderer } from 'electron'
 const api = {
   getVersion: () => ipcRenderer.invoke('app:getVersion'),
   launchApplication: (id) => ipcRenderer.invoke('applications:launch', id),
-  listApplications: () => ipcRenderer.invoke('applications:list')
+  listApplications: () => ipcRenderer.invoke('applications:list'),
+  activateMode: (id) => ipcRenderer.invoke('modes:activate', id)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

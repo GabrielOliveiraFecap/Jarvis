@@ -2,6 +2,7 @@ import { app, ipcMain } from 'electron'
 import { getApplication, listApplications } from './config/configStore'
 import { launchApplication } from './launcher'
 import { listRunningProcesses, isApplicationRunning } from './processList'
+import { activateMode } from './modeManager'
 
 //cadastro da "rota"
 //tipo app.get('/version', () => ...)
@@ -27,5 +28,9 @@ export function registerIpcHandlers() {
       }
     })
     return resultado
+  })
+
+  ipcMain.handle('modes:activate', (event, id) => {
+    return activateMode(id)
   })
 }

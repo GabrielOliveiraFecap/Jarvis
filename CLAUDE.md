@@ -160,7 +160,7 @@ funcionalidades de outras fases.
    reconhecimento e síntese de voz, memória contextual, instalador, suporte multiplataforma,
    atualizações futuras.
 
-**Próxima etapa planejada:** iniciar a Fase 3, com o registro de modos.
+**Próxima etapa planejada:** concluir a Fase 3, com o feedback de estado dos modos.
 
 ## 6. Regras gerais de desenvolvimento
 
@@ -308,7 +308,8 @@ src/
   main/launcher.js      abre aplicações com spawn
   main/riotClient.js    pede ao Riot Client para iniciar o jogo, usando riotLockfile.js
   main/processList.js   lista processos abertos e verifica aplicações
-  preload/index.js      expõe api com getVersion, launchApplication e listApplications
+  main/modeManager.js   ativa as aplicações de um modo
+  preload/index.js      expõe api com getVersion, aplicações e activateMode
   renderer/index.html   página base e Content Security Policy
   renderer/src/         main.jsx, App.jsx e assets/main.css
 resources/              recursos usados em execução
