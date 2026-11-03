@@ -1,11 +1,6 @@
 import { useState, useEffect } from 'react'
 import ModeCard from './components/ModeCard'
-
-const statusLabels = {
-  launched: { text: 'Aberto', className: 'text-ok' },
-  'already-running': { text: 'Já estava aberto', className: 'text-warn' },
-  error: { text: 'Erro', className: 'text-fail' }
-}
+import ResultItem from './components/ResultItem'
 
 function App() {
   const [version, setVersion] = useState('')
@@ -62,19 +57,14 @@ function App() {
         <section className="flex flex-col gap-4">
           <h2 className="text-sm font-medium tracking-widest text-sand uppercase">Resultado</h2>
           <ul className="divide-y divide-line rounded-xl border border-line bg-panel">
-            {results.map((result) => {
-              const label = statusLabels[result.status]
-
-              return (
-                <li key={result.id} className="flex flex-col gap-1 px-5 py-4">
-                  <div className="flex justify-between">
-                    <span>{result.id}</span>
-                    <span className={label.className}>{label.text}</span>
-                  </div>
-                  {result.message && <p className="text-sm text-sand">{result.message}</p>}
-                </li>
-              )
-            })}
+            {results.map((result) => (
+              <ResultItem
+                key={result.id}
+                id={result.id}
+                status={result.status}
+                message={result.message}
+              />
+            ))}
           </ul>
         </section>
       )}
