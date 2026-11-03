@@ -1,6 +1,27 @@
 @import 'tailwindcss';
 
-body {
-  margin: 0;
-  font-family: sans-serif;
+/* Design system: tema escuro, creme sobre preto quente */
+@theme {
+  --font-sans: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+
+  --color-ink: #0e0d0b;
+  --color-panel: #181613;
+  --color-panel-hover: #221f1b;
+  --color-line: #2f2b25;
+  --color-cream: #efe6d2;
+  --color-sand: #a59c8b;
+
+  --color-ok: #9cbf8a;
+  --color-warn: #d9b36c;
+  --color-fail: #e08a7a;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-ink font-sans text-cream antialiased;
+  }
 }

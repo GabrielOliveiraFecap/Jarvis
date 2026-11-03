@@ -24,7 +24,9 @@ export default [
     },
     rules: {
       ...eslintPluginReactHooks.configs.recommended.rules,
-      ...eslintPluginReactRefresh.configs.vite.rules
+      ...eslintPluginReactRefresh.configs.vite.rules,
+      // O React 19 não verifica mais propTypes
+      'react/prop-types': 'off'
     }
   },
   eslintConfigPrettier
