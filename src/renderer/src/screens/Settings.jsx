@@ -4,11 +4,19 @@ import ApplicationItem from '../components/ApplicationItem'
 export default function Settings() {
   const [applications, setApplications] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     async function loadApplications() {
-      setApplications(await window.api.listApplications())
-      setLoading(false)
+      try {
+        setApplications(await window.api.listApplications())
+        setError('')
+      } catch (error) {
+        setError(error.message)
+        console.error(error)
+      } finally {
+        setLoading(false)
+      }
     }
     loadApplications()
     const id = setInterval(() => loadApplications(), 3000)
@@ -19,7 +27,7 @@ export default function Settings() {
   return (
     <section className="flex flex-col gap-4">
       <h2 className="text-sm font-medium tracking-widest text-sand uppercase">Aplicações</h2>
-
+      {error && <p className="text-fail">Não foi possível verificar as aplicações</p>}
       {loading ? (
         <p className="text-sand">Carregando...</p>
       ) : (
