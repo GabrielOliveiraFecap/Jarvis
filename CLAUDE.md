@@ -209,6 +209,11 @@ autonomia desenvolvidos.
 
 Não presuma conhecimento avançado nos assuntos em aprendizado.
 
+A base de HTML, CSS e JavaScript puro é fraca: foi aprendida já misturada com React, Express e
+Node na faculdade. Recursos nativos da linguagem e do navegador (como `setInterval`, escopo,
+Promises, arrow functions e ternários) podem ser novos. Explique-os do zero, separando o que é
+JavaScript do que é React.
+
 ### Como ensinar
 
 Sempre que introduzir algo relevante:
