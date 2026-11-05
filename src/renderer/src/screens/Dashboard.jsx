@@ -1,9 +1,16 @@
 import { useEffect, useState } from 'react'
+import ModeCard from '../components/ModeCard'
 
 export default function Dashboard() {
   const [error, setError] = useState('')
   const [applications, setApplications] = useState([])
+  const [modes, setModes] = useState([])
+  const [activating, setActivating] = useState(false)
 
+  useEffect(()=>{
+    
+  },[])
+    //com set interval
   useEffect(() => {
     async function loadApplications() {
       try {
