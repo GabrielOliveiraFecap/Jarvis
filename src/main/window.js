@@ -11,6 +11,9 @@ export function createMainWindow() {
     show: false,
     autoHideMenuBar: true,
     icon: icon,
+    backgroundColor: '#0e0d0b',
+    titleBarStyle: 'hidden',
+    titleBarOverlay: { color: '#0e0d0b', symbolColor: '#efe6d2', height: 40 },
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: true,
