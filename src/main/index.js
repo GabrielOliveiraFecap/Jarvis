@@ -2,11 +2,15 @@ import { app, BrowserWindow, dialog } from 'electron'
 import { electronApp, optimizer } from '@electron-toolkit/utils'
 import { createMainWindow } from './window'
 import { registerIpcHandlers } from './ipc'
+import { openDatabase } from './database'
+import { runMigrations } from './migrations'
 
 async function start() {
   await app.whenReady()
 
   electronApp.setAppUserModelId('jarvis.gabriel')
+  const db = openDatabase()
+  runMigrations(db)
 
   registerIpcHandlers()
 

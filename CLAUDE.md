@@ -36,17 +36,17 @@ A IA nunca tem liberdade para executar comandos arbitrários no sistema operacio
 
 ## 2. Stack e arquitetura
 
-| Área             | Decisão                       |
-| ---------------- | ----------------------------- |
-| Desktop          | Electron                      |
-| Ambiente e build | electron-vite e Vite          |
-| Interface        | React e Tailwind CSS          |
-| Linguagem        | JavaScript com ES Modules     |
-| Serviços         | Node.js no processo principal |
-| Comunicação      | Electron IPC                  |
-| Banco de dados   | SQLite local                  |
-| Empacotamento    | Electron Builder              |
-| Testes           | `node:test`                   |
+| Área             | Decisão                         |
+| ---------------- | ------------------------------- |
+| Desktop          | Electron                        |
+| Ambiente e build | electron-vite e Vite            |
+| Interface        | React e Tailwind CSS            |
+| Linguagem        | JavaScript com ES Modules       |
+| Serviços         | Node.js no processo principal   |
+| Comunicação      | Electron IPC                    |
+| Banco de dados   | SQLite local, com `node:sqlite` |
+| Empacotamento    | Electron Builder                |
+| Testes           | `node:test`                     |
 
 - **Somente JavaScript.** Não introduza TypeScript nem converta arquivos para `.ts` ou `.tsx`.
   Consolidar o conhecimento em JavaScript é um dos objetivos do projeto.
@@ -129,6 +129,11 @@ A persistência deve contemplar progressivamente: configurações, aplicações,
 entre modos e aplicações, provedores de IA, conversas, mensagens e histórico de automações.
 
 Planeje a estrutura definitiva conforme as necessidades reais de cada fase.
+
+O SQLite usa o módulo `node:sqlite`, que já vem no Node do Electron, sem dependência nem
+recompilação nativa. Ele ainda não é marcado como totalmente estável no Node 24; por isso, só o
+Main acessa o banco, e o acesso fica concentrado no `configStore.js` e nos módulos de banco. Se a
+API mudar, a alternativa é o `better-sqlite3`, que tem interface parecida.
 
 **Diretriz arquitetural:** a persistência definitiva é implementada somente na Fase 5.
 
@@ -395,11 +400,9 @@ Nada aqui é decisão. Pergunte antes de assumir qualquer resposta.
    ferramenta para interface na Fase 4.
 2. **Fallback e modo Automático:** falta definir como a escolha de provedor fica visível, já que a
    troca silenciosa é proibida.
-3. **Biblioteca do SQLite:** não foi escolhida. O `electron-builder.yml` usa `npmRebuild: false`, o
-   que deve ser revisto se ela for um módulo nativo.
-4. **Armazenamento de credenciais:** o mecanismo não foi escolhido.
-5. **Registro de decisões arquiteturais:** falta definir o formato e o local.
-6. **Commits:** falta confirmar se devem ser feitos só após aprovação em cada etapa, e definir uma
+3. **Armazenamento de credenciais:** o mecanismo não foi escolhido.
+4. **Registro de decisões arquiteturais:** falta definir o formato e o local.
+5. **Commits:** falta confirmar se devem ser feitos só após aprovação em cada etapa, e definir uma
    convenção de mensagens.
 
 ### Propostas ainda não aprovadas
