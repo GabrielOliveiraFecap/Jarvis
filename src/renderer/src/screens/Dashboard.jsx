@@ -6,11 +6,33 @@ export default function Dashboard() {
   const [applications, setApplications] = useState([])
   const [modes, setModes] = useState([])
   const [activating, setActivating] = useState(false)
+  const [activateError, setActivateError] = useState('')
 
-  useEffect(()=>{
-    
-  },[])
-    //com set interval
+  useEffect(() => {
+    async function loadModes() {
+      try {
+        setModes(await window.api.listModes())
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    loadModes()
+  }, [])
+
+  async function handleActivate(id) {
+    setActivating(true)
+    setActivateError('')
+    try {
+      await window.api.activateMode(id)
+    } catch (error) {
+      console.error(error)
+      setActivateError('Não foi possível ativar o modo')
+    } finally {
+      setActivating(false)
+    }
+  }
+
+  //com set interval
   useEffect(() => {
     async function loadApplications() {
       try {
@@ -82,6 +104,22 @@ export default function Dashboard() {
           </>
         )}
       </div>
+      <section className="flex flex-col gap-4">
+        <h2 className="text-sm font-medium tracking-widest text-sand uppercase">Ativação rápida</h2>
+        {activateError && <p className="text-fail">{activateError}</p>}
+        <div className="grid grid-cols-3 gap-4">
+          {modes.map((mode) => (
+            <ModeCard
+              key={mode.id}
+              name={mode.name}
+              disabled={activating}
+              onClick={() => handleActivate(mode.id)}
+            />
+          ))}
+        </div>
+      </section>
+
+      {activating && <p className="text-sand">Abrindo aplicações...</p>}
     </>
   )
 }
