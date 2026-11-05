@@ -4,6 +4,7 @@ import { createMainWindow } from './window'
 import { registerIpcHandlers } from './ipc'
 import { openDatabase } from './database'
 import { runMigrations } from './migrations'
+import { seedDatabase } from './seed'
 
 async function start() {
   await app.whenReady()
@@ -11,6 +12,7 @@ async function start() {
   electronApp.setAppUserModelId('jarvis.gabriel')
   const db = openDatabase()
   runMigrations(db)
+  seedDatabase(db)
 
   registerIpcHandlers()
 
