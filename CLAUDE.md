@@ -169,7 +169,7 @@ funcionalidades de outras fases.
    reconhecimento e síntese de voz, memória contextual, instalador, suporte multiplataforma,
    atualizações futuras.
 
-**Próxima etapa planejada:** iniciar a Fase 4, com a interface.
+**Próxima etapa planejada:** iniciar a Fase 5, com a persistência em SQLite.
 
 ## 6. Regras gerais de desenvolvimento
 
@@ -309,8 +309,9 @@ forneça-a sem deixar de explicar brevemente algo importante.
 Conferido em 2026-10-30. Confira de novo antes de usar.
 
 O projeto veio do template Electron Vite com React e JavaScript. Os elementos demonstrativos do
-template (botão de IPC e componente Versions) já não existem. As Fases 1 a 3 estão concluídas: a
-tela mostra um botão por modo e o status de cada aplicação ativada, ainda sem o visual da Fase 4.
+template (botão de IPC e componente Versions) já não existem. As Fases 1 a 4 estão concluídas: a
+interface tem barra lateral com Início, Modos, Chat (ainda sem IA, só repete a mensagem) e
+Configurações (só leitura), com estados de carregamento e erro.
 
 ```text
 src/
@@ -325,7 +326,9 @@ src/
   main/modeManager.js   ativa as aplicações de um modo
   preload/index.js      expõe api com getVersion, aplicações, listModes e activateMode
   renderer/index.html   página base e Content Security Policy
-  renderer/src/         main.jsx, App.jsx e assets/main.css
+  renderer/src/         main.jsx, App.jsx (troca de tela por estado) e assets/main.css
+  renderer/src/screens/ Dashboard, Modes, Chat e Settings
+  renderer/src/components/ Sidebar, ModeCard, ResultItem e ApplicationItem
 resources/              recursos usados em execução
 build/                  ícones e recursos de empacotamento
 ```
