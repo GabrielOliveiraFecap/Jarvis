@@ -36,8 +36,21 @@ export function registerIpcHandlers() {
 
   ipcMain.handle('modes:list', async () => {
     const modes = await listModes()
-    return modes.map((mode) => {
-      return { id: mode.id, name: mode.name }
-    })
+    const result = []
+
+    for (const mode of modes) {
+      const applications = []
+
+      for (const applicationId of mode.applicationIds) {
+        const application = await getApplication(applicationId)
+        if (application) {
+          applications.push(application.name)
+        }
+      }
+
+      result.push({ id: mode.id, name: mode.name, applications })
+    }
+
+    return result
   })
 }
