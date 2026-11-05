@@ -3,9 +3,10 @@ import Modes from './screens/Modes'
 import Sidebar from './components/Sidebar'
 import Chat from './screens/Chat'
 import Settings from './screens/Settings'
+import Dashboard from './screens/Dashboard'
 
 function App() {
-  const [screen, setScreen] = useState('modes')
+  const [screen, setScreen] = useState('dashboard')
   const [version, setVersion] = useState('')
 
   useEffect(() => {
@@ -26,6 +27,7 @@ function App() {
           <span className="absolute top-0 right-0 text-sm text-sand">v{version}</span>
         </header>
 
+        {screen === 'dashboard' && <Dashboard />}
         {screen === 'modes' && <Modes />}
         {screen === 'chat' && <Chat />}
         {screen === 'settings' && <Settings />}

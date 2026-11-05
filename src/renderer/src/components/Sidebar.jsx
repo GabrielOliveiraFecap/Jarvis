@@ -1,4 +1,5 @@
 const items = [
+  { id: 'dashboard', label: 'Início' },
   { id: 'modes', label: 'Modos' },
   { id: 'chat', label: 'Chat' },
   { id: 'settings', label: 'Configurações' }
