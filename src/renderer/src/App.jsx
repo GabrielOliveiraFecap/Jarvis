@@ -24,7 +24,7 @@ function App() {
         <header className="relative border-b border-line pb-6 text-center">
           <h1 className="text-4xl font-semibold tracking-tight">Jarvis</h1>
           <p className="mt-1 text-sand">Assistente pessoal</p>
-          <span className="absolute top-0 right-0 text-sm text-sand">v{version}</span>
+          {screen==='settings' && <span className="absolute top-0 right-0 text-sm text-sand">v{version}</span>}
         </header>
 
         {screen === 'dashboard' && <Dashboard />}
