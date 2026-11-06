@@ -3,6 +3,13 @@ import { join } from 'path'
 import { is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { isAllowedExternalUrl } from './externalUrl'
+import { app } from 'electron'
+
+let isQuitting = false
+
+app.on('before-quit', () => {
+  isQuitting = true
+})
 
 export function createMainWindow() {
   const mainWindow = new BrowserWindow({
@@ -21,9 +28,11 @@ export function createMainWindow() {
       nodeIntegration: false
     }
   })
-
+  //pra qnd inicializar com o windows nao aparecer na tela direto
   mainWindow.on('ready-to-show', () => {
-    mainWindow.show()
+    if (!process.argv.includes('--hidden')) {
+      mainWindow.show()
+    }
   })
 
   mainWindow.webContents.setWindowOpenHandler((details) => {
@@ -38,6 +47,14 @@ export function createMainWindow() {
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  //pra qnd fechar a janela, ela nao fecha mesmo so minimiza/esconde
+  mainWindow.on('close', (event) => {
+    if (!isQuitting) {
+      event.preventDefault() // cancela: a janela não fecha
+      mainWindow.hide()
+    }
+  })
 
   return mainWindow
 }

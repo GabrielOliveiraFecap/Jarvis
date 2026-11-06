@@ -20,8 +20,17 @@ CREATE TABLE mode_applications(
     PRIMARY KEY (mode_id, application_id),
     CONSTRAINT application_fk FOREIGN KEY(application_id) REFERENCES applications(id),
     CONSTRAINT mode_fk FOREIGN KEY(mode_id) REFERENCES modes(id)
-);`
+);`,
+`CREATE TABLE mode_activations(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+mode_id TEXT NOT NULL,
+activated_at TEXT NOT NULL,
+CONSTRAINT fk_mode FOREIGN KEY(mode_id) REFERENCES modes(id)
+)`
 ]
+
+
+
 export function runMigrations(db) {
   const { user_version: version } = db.prepare('PRAGMA user_version').get()
   for (let i = version; i < migrations.length; i++) {

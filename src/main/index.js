@@ -5,9 +5,17 @@ import { registerIpcHandlers } from './ipc'
 import { openDatabase } from './database'
 import { runMigrations } from './migrations'
 import { seedDatabase } from './seed'
+import { createTray } from './tray'
 
 async function start() {
   await app.whenReady()
+
+  if (app.isPackaged) {
+    app.setLoginItemSettings({
+      openAtLogin: true,
+      args: ['--hidden']
+    })
+  }
 
   electronApp.setAppUserModelId('jarvis.gabriel')
   const db = openDatabase()
@@ -20,18 +28,15 @@ async function start() {
     optimizer.watchWindowShortcuts(window)
   })
 
-  createMainWindow()
+  const mainWindow = createMainWindow()
+  createTray(mainWindow)
 
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createMainWindow()
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createMainWindow()
+    }
   })
 }
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
 
 start().catch((error) => {
   console.error('Falha ao iniciar o Jarvis:', error)
