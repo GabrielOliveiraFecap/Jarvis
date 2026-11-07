@@ -62,3 +62,19 @@ export async function recordModeActivation(modeId) {
     new Date().toISOString()
   )
 }
+
+export async function getLastModeActivation() {
+  const db = getDatabase()
+  const row = db
+    .prepare(
+      'SELECT m.name, ma.activated_at FROM mode_activations ma JOIN modes m ON ma.mode_id = m.id ORDER BY ma.id DESC LIMIT 1'
+    )
+    .get()
+  if (row === undefined) {
+    return null
+  }
+  return {
+    modeName: row.name,
+    activatedAt: row.activated_at
+  }
+}

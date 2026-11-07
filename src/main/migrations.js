@@ -26,7 +26,13 @@ id INTEGER PRIMARY KEY AUTOINCREMENT,
 mode_id TEXT NOT NULL,
 activated_at TEXT NOT NULL,
 CONSTRAINT fk_mode FOREIGN KEY(mode_id) REFERENCES modes(id)
-)`
+)`,
+`
+CREATE TABLE settings(
+key TEXT PRIMARY KEY, 
+value TEXT NOT NULL
+)
+`
 ]
 
 export function runMigrations(db) {

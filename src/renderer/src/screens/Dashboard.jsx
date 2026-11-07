@@ -7,6 +7,15 @@ export default function Dashboard() {
   const [modes, setModes] = useState([])
   const [activating, setActivating] = useState(false)
   const [activateError, setActivateError] = useState('')
+  const [lastActivation, setLastActivation] = useState(null)
+
+  async function loadLastActivations() {
+    try {
+      setLastActivation(await window.api.lastModeActivation())
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   useEffect(() => {
     async function loadModes() {
@@ -16,7 +25,15 @@ export default function Dashboard() {
         console.error(error)
       }
     }
+    async function loadFirstActivation() {
+      try {
+        setLastActivation(await window.api.lastModeActivation())
+      } catch (error) {
+        console.error(error)
+      }
+    }
     loadModes()
+    loadFirstActivation()
   }, [])
 
   async function handleActivate(id) {
@@ -24,6 +41,7 @@ export default function Dashboard() {
     setActivateError('')
     try {
       await window.api.activateMode(id)
+      loadLastActivations()
     } catch (error) {
       console.error(error)
       setActivateError('Não foi possível ativar o modo')
@@ -104,6 +122,21 @@ export default function Dashboard() {
           </>
         )}
       </div>
+
+      {lastActivation && (
+        <div className="rounded-xl border border-line bg-panel px-5 py-4">
+          <p className="text-sm font-medium tracking-widest text-sand uppercase">Último modo</p>
+          <p className="mt-1 text-lg font-semibold">{lastActivation.modeName}</p>
+          <p className="text-sand">
+            {new Date(lastActivation.activatedAt).toLocaleString('pt-BR', {
+              day: 'numeric',
+              month: 'long',
+              hour: '2-digit',
+              minute: '2-digit'
+            })}
+          </p>
+        </div>
+      )}
       <section className="flex flex-col gap-4">
         <h2 className="text-sm font-medium tracking-widest text-sand uppercase">Ativação rápida</h2>
         {activateError && <p className="text-fail">{activateError}</p>}

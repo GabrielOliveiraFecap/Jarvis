@@ -1,5 +1,10 @@
 import { app, ipcMain } from 'electron'
-import { getApplication, listApplications, listModes } from './config/configStore'
+import {
+  getApplication,
+  listApplications,
+  listModes,
+  getLastModeActivation
+} from './config/configStore'
 import { launchApplication } from './launcher'
 import { listRunningProcesses, isApplicationRunning } from './processList'
 import { activateMode } from './modeManager'
@@ -8,6 +13,11 @@ import { activateMode } from './modeManager'
 //tipo app.get('/version', () => ...)
 export function registerIpcHandlers() {
   ipcMain.handle('app:getVersion', () => app.getVersion())
+
+  ipcMain.handle('modes:lastActivation', async () => {
+    const lastModeActivation = await getLastModeActivation()
+    return lastModeActivation
+  })
 
   ipcMain.handle('applications:launch', async (event, id) => {
     const application = await getApplication(id)
