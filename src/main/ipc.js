@@ -3,7 +3,9 @@ import {
   getApplication,
   listApplications,
   listModes,
-  getLastModeActivation
+  getLastModeActivation,
+  getSetting,
+  setSetting
 } from './config/configStore'
 import { launchApplication } from './launcher'
 import { listRunningProcesses, isApplicationRunning } from './processList'

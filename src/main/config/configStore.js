@@ -78,3 +78,25 @@ export async function getLastModeActivation() {
     activatedAt: row.activated_at
   }
 }
+
+export async function getSetting(key) {
+  const db = getDatabase()
+  const row = db.prepare('SELECT value FROM settings WHERE key = ?').get(key)
+  if (row === undefined) {
+    return null
+  }
+
+  return row.value
+}
+
+export async function setSetting(key, value) {
+  const db = getDatabase()
+  const row = db
+    .prepare(
+      'INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value'
+    )
+    .run(key, value)
+  if (row === undefined) {
+    return null
+  }
+}
