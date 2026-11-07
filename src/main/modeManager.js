@@ -1,11 +1,15 @@
 import { launchApplication } from './launcher'
-import { getMode } from './config/configStore'
-import { getApplication } from './config/configStore'
+import { getMode, recordModeActivation, getApplication } from './config/configStore'
 
 export async function activateMode(modeId) {
   const mode = await getMode(modeId)
   if (!mode) {
     throw new Error('Modo desconhecido')
+  }
+  try {
+    await recordModeActivation(modeId)
+  } catch (error) {
+    console.error('Falha ao gravar o histórico de ativações:', error)
   }
 
   const results = []

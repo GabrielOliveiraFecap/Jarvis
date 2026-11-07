@@ -54,3 +54,11 @@ export async function getMode(id) {
   }
   return rowToMode(row)
 }
+
+export async function recordModeActivation(modeId) {
+  const db = getDatabase()
+  db.prepare('INSERT INTO mode_activations (mode_id, activated_at) VALUES (?, ?)').run(
+    modeId,
+    new Date().toISOString()
+  )
+}
