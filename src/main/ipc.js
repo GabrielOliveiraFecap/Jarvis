@@ -65,4 +65,23 @@ export function registerIpcHandlers() {
 
     return result
   })
+
+  const allowedSettings = ['userName']
+  ipcMain.handle('settings:get', async (event, key) => {
+    if (!allowedSettings.includes(key)) {
+      throw new Error('Configuração desconhecida')
+    }
+    const setting = await getSetting(key)
+    return setting
+  })
+
+  ipcMain.handle('settings:set', async (event, key, value) => {
+    if (!allowedSettings.includes(key)) {
+      throw new Error('Configuração desconhecida')
+    }
+    if (typeof value !== 'string' || value.trim() === '') {
+      throw new Error('Valor vazio')
+    }
+    await setSetting(key, value)
+  })
 }

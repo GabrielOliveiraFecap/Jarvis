@@ -8,6 +8,7 @@ export default function Dashboard() {
   const [activating, setActivating] = useState(false)
   const [activateError, setActivateError] = useState('')
   const [lastActivation, setLastActivation] = useState(null)
+  const [userName, setUserName] = useState('')
 
   async function loadLastActivations() {
     try {
@@ -32,8 +33,16 @@ export default function Dashboard() {
         console.error(error)
       }
     }
+    async function loadUserName() {
+      try {
+        setUserName(await window.api.getSettings('userName'))
+      } catch (error) {
+        console.error(error)
+      }
+    }
     loadModes()
     loadFirstActivation()
+    loadUserName()
   }, [])
 
   async function handleActivate(id) {
@@ -72,19 +81,20 @@ export default function Dashboard() {
   const totalOpen = open.length
 
   const now = new Date()
+  const name = userName || 'Gabriel'
   let text
-  const name = 'Gabriel'
+
   const dataHoje = now.toLocaleDateString('pt-BR', {
     weekday: 'long',
     day: 'numeric',
     month: 'long'
   })
   if (now.getHours() < 12 && now.getHours() > 5) {
-    text = `Olá ${name}. Bom dia!`
+    text = `Olá ${name || 'Gabriel'}. Bom dia!`
   } else if (now.getHours() < 18 && now.getHours() >= 12) {
-    text = `Olá ${name}. Boa tarde!`
+    text = `Olá ${name || 'Gabriel'}. Boa tarde!`
   } else {
-    text = `Olá ${name}. Boa noite!`
+    text = `Olá ${name || 'Gabriel'}. Boa noite!`
   }
 
   return (

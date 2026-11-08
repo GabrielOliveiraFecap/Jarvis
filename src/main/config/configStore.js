@@ -91,12 +91,7 @@ export async function getSetting(key) {
 
 export async function setSetting(key, value) {
   const db = getDatabase()
-  const row = db
-    .prepare(
-      'INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value'
-    )
-    .run(key, value)
-  if (row === undefined) {
-    return null
-  }
+  db.prepare(
+    'INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value'
+  ).run(key, value)
 }

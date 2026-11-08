@@ -7,7 +7,9 @@ const api = {
   listApplications: () => ipcRenderer.invoke('applications:list'),
   listModes: () => ipcRenderer.invoke('modes:list'),
   activateMode: (id) => ipcRenderer.invoke('modes:activate', id),
-  lastModeActivation: () => ipcRenderer.invoke('modes:lastActivation')
+  lastModeActivation: () => ipcRenderer.invoke('modes:lastActivation'),
+  getSettings: (key) => ipcRenderer.invoke('settings:get', key),
+  setSettings: (key, value) => ipcRenderer.invoke('settings:set', key, value)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to
