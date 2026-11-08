@@ -90,11 +90,11 @@ export default function Dashboard() {
     month: 'long'
   })
   if (now.getHours() < 12 && now.getHours() > 5) {
-    text = `Olá ${name || 'Gabriel'}. Bom dia!`
+    text = `Olá, ${name || 'Gabriel'}. Bom dia!`
   } else if (now.getHours() < 18 && now.getHours() >= 12) {
-    text = `Olá ${name || 'Gabriel'}. Boa tarde!`
+    text = `Olá, ${name || 'Gabriel'}. Boa tarde!`
   } else {
-    text = `Olá ${name || 'Gabriel'}. Boa noite!`
+    text = `Olá, ${name || 'Gabriel'}. Boa noite!`
   }
 
   return (

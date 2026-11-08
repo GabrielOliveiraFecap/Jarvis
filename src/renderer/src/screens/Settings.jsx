@@ -6,6 +6,8 @@ export default function Settings() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [modes, setModes] = useState([])
+  const [userName, setUserName] = useState('')
+  const [saveMessage, setSaveMessage] = useState('')
 
   useEffect(() => {
     async function loadModes() {
@@ -15,7 +17,16 @@ export default function Settings() {
         console.error(error)
       }
     }
+    async function loadUserName() {
+      try {
+        setUserName((await window.api.getSettings('userName')) || '')
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
     loadModes()
+    loadUserName()
   }, [])
 
   useEffect(() => {
@@ -36,8 +47,46 @@ export default function Settings() {
     return () => clearInterval(id)
   }, [])
 
+  async function handleSave(event) {
+    event.preventDefault()
+    setSaveMessage('')
+    try {
+      await window.api.setSettings('userName', userName)
+      setSaveMessage('Salvo!')
+    } catch (error) {
+      setSaveMessage('Não foi possível salvar')
+      console.error(error)
+    }
+  }
+
   return (
     <>
+      <section className="flex flex-col gap-4">
+        <h2 className="text-sm font-medium tracking-widest text-sand uppercase">Perfil</h2>
+        <form
+          onSubmit={handleSave}
+          className="flex flex-col gap-3 rounded-xl border border-line bg-panel px-5 py-4"
+        >
+          <label htmlFor="userName" className="text-sand">
+            Seu nome
+          </label>
+          <div className="flex gap-2">
+            <input
+              id="userName"
+              type="text"
+              value={userName}
+              onChange={(event) => setUserName(event.target.value)}
+              placeholder="Como o Jarvis deve te chamar"
+              className="flex-1 rounded-xl border border-line bg-ink px-4 py-3 placeholder:text-sand focus:border-cream/40 focus:outline-none"
+            />
+            <button className="rounded-xl bg-cream px-5 font-medium text-ink hover:bg-cream/90">
+              Salvar
+            </button>
+          </div>
+          {saveMessage && <p className="text-sm text-sand">{saveMessage}</p>}
+        </form>
+      </section>
+
       <section className="flex flex-col gap-4">
         <h2 className="text-sm font-medium tracking-widest text-sand uppercase">Modos</h2>
         <ul className="divide-y divide-line rounded-xl border border-line bg-panel">
