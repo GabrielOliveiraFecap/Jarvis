@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import ApplicationItem from '../components/ApplicationItem'
+import Switch from '../components/Switch'
 
 export default function Settings() {
   const [applications, setApplications] = useState([])
@@ -8,6 +9,8 @@ export default function Settings() {
   const [modes, setModes] = useState([])
   const [userName, setUserName] = useState('')
   const [saveMessage, setSaveMessage] = useState('')
+  const [startWithWindows, setStartWithWindows] = useState(true)
+  const [toggleError, setToggleError] = useState('')
 
   useEffect(() => {
     async function loadModes() {
@@ -24,9 +27,18 @@ export default function Settings() {
         console.error(error)
       }
     }
+    async function loadAutoStart() {
+      try {
+        const saved = await window.api.getSettings('startWithWindows')
+        setStartWithWindows(saved !== 'false')
+      } catch (error) {
+        console.error(error)
+      }
+    }
 
     loadModes()
     loadUserName()
+    loadAutoStart()
   }, [])
 
   useEffect(() => {
@@ -59,6 +71,17 @@ export default function Settings() {
     }
   }
 
+  async function handleToggle(checked) {
+    setToggleError('')
+    try {
+      await window.api.setSettings('startWithWindows', String(checked))
+      setStartWithWindows(checked)
+    } catch (error) {
+      setToggleError('Não foi possível alterar essa configuração')
+      console.error(error)
+    }
+  }
+
   return (
     <>
       <section className="flex flex-col gap-4">
@@ -85,6 +108,20 @@ export default function Settings() {
           </div>
           {saveMessage && <p className="text-sm text-sand">{saveMessage}</p>}
         </form>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="text-sm font-medium tracking-widest text-sand uppercase">Sistema</h2>
+        <div className="flex items-center justify-between gap-4 rounded-xl border border-line bg-panel px-5 py-4">
+          <div>
+            <p>Iniciar com o Windows</p>
+            <p className="text-sm text-sand">
+              O Jarvis abre em segundo plano ao ligar o computador
+            </p>
+          </div>
+          <Switch checked={startWithWindows} onChange={handleToggle} />
+        </div>
+        {toggleError && <p className="text-fail">{toggleError}</p>}
       </section>
 
       <section className="flex flex-col gap-4">

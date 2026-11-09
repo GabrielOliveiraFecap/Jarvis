@@ -10,6 +10,7 @@ import {
 import { launchApplication } from './launcher'
 import { listRunningProcesses, isApplicationRunning } from './processList'
 import { activateMode } from './modeManager'
+import { applyStartWithWindows } from './autoStart'
 
 //cadastro da "rota"
 //tipo app.get('/version', () => ...)
@@ -66,7 +67,7 @@ export function registerIpcHandlers() {
     return result
   })
 
-  const allowedSettings = ['userName']
+  const allowedSettings = ['userName', 'startWithWindows']
   ipcMain.handle('settings:get', async (event, key) => {
     if (!allowedSettings.includes(key)) {
       throw new Error('Configuração desconhecida')
@@ -82,6 +83,13 @@ export function registerIpcHandlers() {
     if (typeof value !== 'string' || value.trim() === '') {
       throw new Error('Valor vazio')
     }
+    if (key === 'startWithWindows' && value !== 'true' && value !== 'false') {
+      throw new Error('Valor inválido')
+    }
     await setSetting(key, value)
+
+    if (key === 'startWithWindows') {
+      applyStartWithWindows(value === 'true')
+    }
   })
 }
